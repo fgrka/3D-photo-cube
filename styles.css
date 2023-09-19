@@ -1,0 +1,241 @@
+ :root {
+    --cube-dim: 300px;
+    --rotationX: 20deg;
+    --rotationY: -10deg;
+}
+
+* {
+    margin:0;
+    padding:0;
+    font-family: Bangers, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 4rem;
+    user-select: none;
+}
+
+h2 {
+    font-size: 2.5rem;
+    user-select: none;
+}
+
+p {
+    font-size: 1.6rem;
+    user-select: none;
+}
+
+header {
+    display: flex;
+    height: 8rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.main-container {
+    perspective: 1100px;
+    display: flex;
+    width: 100%;
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+}
+
+.cube-container {
+    display: block;
+    position: relative;
+    margin: auto;
+    height: var(--cube-dim);
+    width: var(--cube-dim);
+    transform: rotateX(var(--rotationY)) rotateY(var(--rotationX)) rotateZ(0deg);
+    transform-style: preserve-3d;
+    transform-origin: center center calc(var(--cube-dim)/-2);
+    user-select: none;
+    transition: transform 1s ease-out;  
+}
+ 
+.shadow-container {
+    display: block;
+    position: fixed;
+    margin-top: 200px;
+    right: 50%;
+    transform-style: preserve-3d;
+    transform-origin: center center -150px;
+    transform: translateY(calc(var(--cube-dim)*1.2)) rotateX(90deg) rotateZ(var(--rotationY));
+    box-shadow: 0px 0px 100px 150px rgba(0, 0, 0, 0.226);
+    transition: transform 1s ease-out;
+}
+
+.cube-side {
+    display: block;
+    position: absolute;
+    height: var(--cube-dim);
+    width: var(--cube-dim);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.276);
+    background-image: url("./img/stars.jpg");
+}
+
+.highlight {
+    box-shadow: 0px 0px 15px rgba(233, 13, 86, 0.911);
+}
+
+.front {
+    transform: translateX(0);
+}
+
+.right {
+    transform: translateX(calc(var(--cube-dim)*0.5)) translateZ(calc(var(--cube-dim)*-0.5)) rotateY(90deg);
+}
+
+.left {
+    transform: translateX(calc(var(--cube-dim)*-0.5)) translateZ(calc(var(--cube-dim)*-0.5)) rotateY(-90deg) ;
+}
+
+.top {
+    transform: translateY(calc(var(--cube-dim)*-0.5)) translateZ(calc(var(--cube-dim)*-0.5)) rotateX(90deg);
+}
+
+.bottom {
+    transform: translateY(calc(var(--cube-dim)*0.5)) translateZ(calc(var(--cube-dim)*-0.5)) rotateX(90deg);   
+}
+
+.back {
+    transform: translateZ(calc(var(--cube-dim)*-1));
+}
+
+.background-container {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.background-img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.cube-side-inner {
+    display: block;
+    position: absolute;
+    top: calc(var(--cube-dim)*0.05);
+    left: calc(var(--cube-dim)*0.05);
+    height: calc(var(--cube-dim)*0.9);
+    width: calc(var(--cube-dim)*0.9);
+    background-color: rgb(198, 189, 198);
+    border-radius: 10%;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.user-cube-img {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+.visible {
+    display: block;
+}
+
+.img-delete {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    z-index: 9999;
+    height: calc(var(--cube-dim)*0.18);
+}
+
+.img-delete > svg {
+    display: block;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    color:rgb(233, 232, 232);
+
+}
+
+.img-delete svg path {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}
+
+.img-delete > svg:hover {
+    color:rgb(255, 255, 255);
+}
+  
+.add-img {
+    display: block;
+    position: absolute;
+    top: 38%;
+    left: 38%;
+    z-index: 9999;
+    padding: 0.3rem;
+    height: calc(var(--cube-dim)*0.2);
+    width: calc(var(--cube-dim)*0.2);
+    background-color: rgb(233, 232, 232);
+    border: none;
+    border-radius: 5px;
+}
+
+.add-img:hover {
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
+
+.user-img-input {
+    display: block;
+    position: absolute;
+    height: 130%;
+    width: 120%;
+    bottom: 0%;
+    right: 0%;  
+    opacity: 0;
+    cursor: pointer;
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.img-title {
+    display: block;
+    text-align: center;
+}
+
+.img-cont {
+    height: 10rem;
+    width: 10rem;
+    margin: 20px;
+    cursor: grab;
+    border-radius: 10%;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.276);
+    user-select: none;
+}
+
+.img-cont:hover {
+    transform: scale(1.1);
+    transition: transform 500ms ease;
+}
+
+.img-sample {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+
+
